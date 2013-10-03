@@ -1,0 +1,136 @@
+#!/bin/bash
+
+CUR_TIME=`date +%FT%TZ`
+CUSTOM_RPMS=./RPMS
+DVD_LAYOUT=./centos-64-iso-layout
+DVD_TITLE='Centos 6.4 Joyent'
+ISO=CentOS-6.4-x86_64-bin-DVD1.iso
+ISO_DIR=./fetched-iso
+ISO_FILENAME=./centos-64-joyent-$CUR_TIME.iso
+KS_CFG=./ks.cfg
+MIRROR=http://mirror.stanford.edu/yum/pub/centos/6.4/isos/x86_64
+MOUNT_POINT=/mnt
+
+function fetch_iso() {
+    echo "Finding $ISO in $ISO_DIR"
+    if [ ! -d $ISO_DIR ]; then
+        mkdir -p $ISO_DIR
+    fi
+
+    if [ -e $ISO_DIR/$ISO ]; then
+        echo "Using $ISO_DIR/$ISO"
+    else
+        echo "$ISO_DIR/$ISO Not Found...Fetching $ISO from $MIRROR"
+        wget -O $ISO_DIR/$ISO $MIRROR/$ISO
+    fi
+}
+
+function create_layout() {
+    echo "Creating ISO Layout"
+    if [ -d $DVD_LAYOUT ]; then
+        echo "Layout $DVD_LAYOUT exists...nuking"
+        rm -rf $DVD_LAYOUT
+    fi
+    echo "Creating $DVD_LAYOUT"
+    mkdir -p $DVD_LAYOUT
+
+    echo "Mounting $ISO to $MOUNT_POINT"
+    mount $ISO_DIR/$ISO $MOUNT_POINT -o loop
+    pushd $MOUNT_POINT > /dev/null 2>&1
+    echo "Populating Layout"
+    tar cf - . | tar xpf - -C $DVD_LAYOUT
+    popd > /dev/null 2>&1
+    umount $MOUNT_POINT
+    echo "Copying custom RPMS"
+    find $CUSTOM_RPMS -type f -exec cp {} $DVD_LAYOUT/Packages \;
+    echo "Finished Populating Layout"
+}
+
+function copy_ks_cfg() {
+    echo "Copying Kickstart file"
+    cp $KS_CFG $DVD_LAYOUT/
+}
+
+function modify_boot_menu() {
+    echo "Modifying boot menu"
+    sed -i 's/^  append initrd\=initrd\.img$/  append initrd\=initrd\.img ks=cdrom\:\/ks\.cfg/' $DVD_LAYOUT/isolinux/isolinux.cfg
+}
+
+function cleanup_layout() {
+    echo "Cleaning up $DVD_LAYOUT"
+    find $DVD_LAYOUT -name TRANS.TBL -delete
+    COMPS_XML=`find $DVD_LAYOUT/repodata -name '*-c6-x86_64-comps.xml' -exec basename {} \;`
+    mv $DVD_LAYOUT/repodata/$COMPS_XML $DVD_LAYOUT/repodata/comps.xml
+    find $DVD_LAYOUT/repodata -type f | egrep -v '/comps.xml' | xargs rm -f
+}
+
+function create_newiso() {
+    cleanup_layout
+    copy_ks_cfg
+    modify_boot_menu
+    echo "Preparing NEW ISO"
+    pushd $DVD_LAYOUT > /dev/null 2>&1
+    discinfo=`head -1 .discinfo`
+    createrepo -u "media://$discinfo" -g repodata/comps.xml $DVD_LAYOUT
+    echo "Creating NEW ISO"
+    mkisofs -r -R -J -T -v \
+     -no-emul-boot -boot-load-size 4 -boot-info-table \
+     -V "$DVD_TITLE" -p "Joyent" \
+     -A "$DVD_TITLE - $CUR_TIME" \
+     -b isolinux/isolinux.bin -c isolinux/boot.cat \
+     -x "lost+found" -o $ISO_FILENAME $DVD_LAYOUT
+    echo "Fixing up NEW ISO"
+    echo implantisomd5 $ISO_FILENAME
+    implantisomd5 $ISO_FILENAME
+    popd > /dev/null 2>&1
+    echo "NEW ISO $ISO_FILENAME is ready"
+}
+
+# main line
+
+usage()
+{
+    cat <<EOF
+Usage:
+        $0 [options] command [command]
+option:
+        -h                    - this usage
+
+Commands:
+        fetch                 - fetch ISO
+        layout                - create layout for new ISO
+        finish                - create the new ISO
+
+EOF
+    exit 1
+}
+
+args=`getopt -o h -n 'build_centos_iso.sh' -- "$@"`
+
+if [[ $? != 0 ]]; then
+    usage;
+fi
+
+eval set -- $args
+
+while true ; do
+   case "$1" in
+       -h)
+            usage;
+            break;;
+       --)
+           shift; break;;
+   esac
+done
+
+for arg ; do
+    if [ $arg = 'fetch' ] ; then
+        fetch_iso
+    fi
+    if [ $arg = 'layout' ] ; then
+        create_layout
+    fi
+    if [ $arg = 'finish' ] ; then
+        create_newiso
+    fi
+done
