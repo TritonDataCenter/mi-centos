@@ -2,10 +2,10 @@
 
 CUR_TIME=`date +%FT%TZ`
 CUSTOM_RPMS=./RPMS
-DVD_LAYOUT=./centos-64-iso-layout
+DVD_LAYOUT=./data/centos-64-iso-layout
 DVD_TITLE='Centos 6.4 Joyent'
 ISO=CentOS-6.4-x86_64-bin-DVD1.iso
-ISO_DIR=./fetched-iso
+ISO_DIR=./data/fetched-iso
 ISO_FILENAME=./centos-64-joyent-$CUR_TIME.iso
 KS_CFG=./ks.cfg
 MIRROR=http://mirror.stanford.edu/yum/pub/centos/6.4/isos/x86_64
