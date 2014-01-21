@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yum install -y anaconda anaconda-help anaconda-runtime createrepo isomd5sum genisoimage rpmdevtools
+yum install -y anaconda anaconda-runtime createrepo isomd5sum genisoimage rpmdevtools
