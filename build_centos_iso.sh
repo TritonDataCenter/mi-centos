@@ -2,7 +2,7 @@
 
 CUR_TIME=`date +%FT%TZ`
 CUSTOM_RPMS=./RPMS
-DVD_LAYOUT=/data/centos-64-iso-layout
+DVD_LAYOUT=/data/centos-65-iso-layout
 DVD_TITLE='Centos 6.5 Joyent'
 ISO=CentOS-6.5-x86_64-bin-DVD1.iso
 ISO_DIR=/data/fetched-iso
