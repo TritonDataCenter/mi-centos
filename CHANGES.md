@@ -1,6 +1,6 @@
 # mi-centos changelog
 
-## 2.5.1 (not yet released)
+## 2.6.0 (not yet released)
 
 - Added kernel tuning for vm.dirty_background_bytes (IMAGE-439) in ks.cfg file.
 Will cause dirty data to begin to be background flushed at 100 Mbytes, so that
@@ -21,8 +21,11 @@ is now deprecated
 layout data. The assumtion is that you'd be using a CentOS VM to build the 
 image.
 
-- Updated bootloader line in ks.cfg file to inlcude boot parameters tsc=reliable and divider=10
+- Updated bootloader line in ks.cfg file to inlcude boot parameters 
+  tsc=reliable and divider=10
 
+- Generate /etc/product file as part of kickstart process. product file is no
+  longer part of /lib/smartdc guest tools
 
 ## 2.5.0
 
