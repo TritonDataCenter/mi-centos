@@ -1,6 +1,6 @@
 # mi-centos changelog
 
-## 2.6.0 (not yet released)
+## 2.6.0
 
 - Added kernel tuning for vm.dirty_background_bytes (IMAGE-439) in ks.cfg file.
 Will cause dirty data to begin to be background flushed at 100 Mbytes, so that
