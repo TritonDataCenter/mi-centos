@@ -1,5 +1,13 @@
 # mi-centos changelog
 
+## 2.6.1
+- Update OpenSSL to (at least) 1.0.1e-16.el6_5.7 to address HeartBleed bug
+- Removed /etc/motd.joyent. /etc/motd file is created explicitly:
+    - The /etc/motd is no longer a symlink to /etc/motd.joyent
+    - The /etc/issue issue.net now linked to /etc/motd
+- More detailed logging information in /var/log/ks.post.log
+- Disabled password auth for ssh. Access is via ssh key only
+
 ## 2.6.0
 
 - Added kernel tuning for vm.dirty_background_bytes (IMAGE-439) in ks.cfg file.
