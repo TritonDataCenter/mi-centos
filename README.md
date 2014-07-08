@@ -67,14 +67,11 @@ is from [https://github.com/joyent/me-centos](https://github.com/joyent/me-cento
 
    * @core
    * acpid
-   * duo_unix
    * iputils
-   * libduo
    * man
    * me-centos
    * ntp
    * ntpdate
-   * pam_duo
    * parted
    * vim-common
    * vim-enhanced
