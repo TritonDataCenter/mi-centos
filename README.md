@@ -53,7 +53,6 @@ SmartOS and the Joyent Public Cloud.
 ## Default Settings For Image
 
 * Stock Kernel
-* [Duo](http://www.duosecurity.com/joyent) 2FA installed by default
 * US Keyboard and Language
 * Firewall enabled with SSH allowed
 * Passwords are using SHA512
@@ -61,7 +60,7 @@ SmartOS and the Joyent Public Cloud.
 * SELinux is set to permissive
 * Timezone is set to UTC
 * Disk is 10GB in size (8GB for / and the rest for swap)
-* Default packages installed (duo built from duosecurity.com and me-centos
+* Default packages installed (me-centos
 is from [https://github.com/joyent/me-centos](https://github.com/joyent/me-centos))
 
 
