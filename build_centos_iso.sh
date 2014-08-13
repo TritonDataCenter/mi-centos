@@ -54,7 +54,7 @@ function copy_ks_cfg() {
 
 function modify_boot_menu() {
     echo "Modifying boot menu"
-    sed -i 's/^  append initrd\=initrd\.img$/  append initrd\=initrd\.img ks=cdrom\:\/ks\.cfg/' $DVD_LAYOUT/isolinux/isolinux.cfg
+    cp ./isolinux.cfg $DVD_LAYOUT/isolinux/
 }
 
 function cleanup_layout() {
