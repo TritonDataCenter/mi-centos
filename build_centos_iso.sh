@@ -108,7 +108,7 @@ EOF
 
 args=`getopt -o h -n 'build_centos_iso.sh' -- "$@"`
 
-if [[ $? != 0 ]]; then
+if [[ $# == 0 ]]; then
     usage;
 fi
 
