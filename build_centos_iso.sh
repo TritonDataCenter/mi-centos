@@ -59,7 +59,7 @@ function modify_boot_menu() {
 
 function cleanup_layout() {
     echo "Cleaning up $DVD_LAYOUT"
-    find $DVD_LAYOUT -name TRANS.TBL -delete
+    find $DVD_LAYOUT -name TRANS.TBL -exec rm '{}' +
     COMPS_XML=`find $DVD_LAYOUT/repodata -name '*-comps.xml' -exec basename {} \;`
     mv $DVD_LAYOUT/repodata/$COMPS_XML $DVD_LAYOUT/repodata/comps.xml
     find $DVD_LAYOUT/repodata -type f | egrep -v '/comps.xml' | xargs rm -f
