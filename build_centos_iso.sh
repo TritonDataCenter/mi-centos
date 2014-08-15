@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+IFS=$'\n\t'
 
 CUR_TIME=`date +%FT%TZ`
 CUSTOM_RPMS=./RPMS
