@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+IFS=$'\n\t'
 
 CUR_TIME=`date +%FT%TZ`
 CUSTOM_RPMS=./RPMS
@@ -54,15 +56,15 @@ function copy_ks_cfg() {
 
 function modify_boot_menu() {
     echo "Modifying boot menu"
-    sed -i 's/^  append initrd\=initrd\.img$/  append initrd\=initrd\.img ks=cdrom\:\/ks\.cfg/' $DVD_LAYOUT/isolinux/isolinux.cfg
+    cp ./isolinux.cfg $DVD_LAYOUT/isolinux/
 }
 
 function cleanup_layout() {
     echo "Cleaning up $DVD_LAYOUT"
-    find $DVD_LAYOUT -name TRANS.TBL -delete
-    COMPS_XML=`find $DVD_LAYOUT/repodata -name '*-c6-x86_64-comps.xml' -exec basename {} \;`
+    find $DVD_LAYOUT -name TRANS.TBL -exec rm '{}' +
+    COMPS_XML=`find $DVD_LAYOUT/repodata -name '*-comps.xml' -exec basename {} \;`
     mv $DVD_LAYOUT/repodata/$COMPS_XML $DVD_LAYOUT/repodata/comps.xml
-    find $DVD_LAYOUT/repodata -type f | egrep -v '/comps.xml' | xargs rm -f
+    find $DVD_LAYOUT/repodata -type f ! -name 'comps.xml' -exec rm '{}' +
 }
 
 function create_newiso() {
@@ -108,7 +110,7 @@ EOF
 
 args=`getopt -o h -n 'build_centos_iso.sh' -- "$@"`
 
-if [[ $? != 0 ]]; then
+if [[ $# == 0 ]]; then
     usage;
 fi
 

@@ -1,5 +1,11 @@
 # mi-centos changelog
 
+## 20140710
+ - Clear network interface and dhcp lease information on source vm/image. This addresses an issue where interfaces are named as eth1 and eth2 instead of eth0 and eth1
+ - The version number is now the build date: 20140710
+ - duo-login is no longer pre-installed (this includes duo_unix, libduo, and pam_duo packages)
+ - OpenSSL updated to 1.0.1e-16.el6_5.14 which addresses various security issues (see https://rhn.redhat.com/errata/RHSA-2014-0625.html)
+
 ## 2.6.1
 - Update OpenSSL to (at least) 1.0.1e-16.el6_5.7 to address HeartBleed bug
 - Removed /etc/motd.joyent. /etc/motd file is created explicitly:
