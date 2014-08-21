@@ -11,7 +11,7 @@ ISO=CentOS-6.5-x86_64-minimal.iso
 ISO_DIR=/data/fetched-iso
 ISO_FILENAME=./centos-65-joyent.iso
 KS_CFG=./ks.cfg
-MIRROR=http://mirror.cs.vt.edu/centos/6.5/isos/x86_64
+MIRROR=http://mirror.cs.vt.edu/pub/CentOS/6.5/isos/x86_64
 MOUNT_POINT=/mnt
 
 function fetch_iso() {
