@@ -54,6 +54,11 @@ function copy_ks_cfg() {
     cp $KS_CFG $DVD_LAYOUT/
 }
 
+function copy_guest_tools() {
+    echo "Copying sdc-vmtools"
+    cp -R ./sdc-vmtools/ $DVD_LAYOUT/ 
+}
+
 function modify_boot_menu() {
     echo "Modifying boot menu"
     cp ./isolinux.cfg $DVD_LAYOUT/isolinux/
@@ -68,6 +73,7 @@ function cleanup_layout() {
 }
 
 function create_newiso() {
+    copy_guest_tools
     cleanup_layout
     copy_ks_cfg
     modify_boot_menu
