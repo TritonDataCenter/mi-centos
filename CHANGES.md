@@ -1,5 +1,16 @@
 # mi-centos changelog
 
+## 20140828
+ - sdc-vmtools is now used instead of the me-centos custom RPM. See build_centos_iso.sh (function copy_guest_tools)
+ - Added NAME var to ks.cfg
+ - Better/more verbose logging
+ - Make sure to clear out /etc/hostname
+ - Use mirror.cs.vt.edu as the mirror
+ -  Added description to /etc/product
+ -  Now using a custom isolinux.cfg file
+ -  Makeing sure all packages are updated via kickstart post
+ -  various improvements/tweaks to  build_centos_iso.sh 
+
 ## 20140710
  - Clear network interface and dhcp lease information on source vm/image. This addresses an issue where interfaces are named as eth1 and eth2 instead of eth0 and eth1
  - The version number is now the build date: 20140710
