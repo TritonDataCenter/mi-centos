@@ -9,6 +9,7 @@ In order to use this repo, you need to have the following:
 
  * SmartOS
  * A running CentOS instance (physical or virtual) with spare disk space
+ * sdc-vmtools
 
 ## Setup
 
@@ -60,15 +61,11 @@ SmartOS and the Joyent Public Cloud.
 * SELinux is set to permissive
 * Timezone is set to UTC
 * Disk is 10GB in size (8GB for / and the rest for swap)
-* Default packages installed (me-centos
-is from [https://github.com/joyent/me-centos](https://github.com/joyent/me-centos))
-
-
+* Default packages installed
    * @core
    * acpid
    * iputils
    * man
-   * me-centos
    * ntp
    * ntpdate
    * parted
