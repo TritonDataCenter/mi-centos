@@ -13,7 +13,7 @@ In order to use this repo, you need to have the following:
 
 ## Setup
 
-Included is a `setup_env.sh` script to be run inside the CentOS instance.  This
+Included is a `setup_env.sh` script to be run inside the CentOS instance. This
 script will install the necessary packages required to create a custom ISO.
 
 ## Using
@@ -25,8 +25,7 @@ The next script is `build_centos_iso.sh` which takes a series of commands:
  * finish
 
 ### fetch
-This command will fetch the DVD ISO from a given URL (default is Stanford) if
-no currently found.
+This command will fetch the DVD ISO from a given URL if no currently found.
 
 ### layout
 This command will extract the ISO and place it onto disk and copying any
