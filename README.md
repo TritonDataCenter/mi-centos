@@ -1,4 +1,4 @@
-# mi-centos
+# CentOS 6 ISO Builder
 
 This repo allows one to create a custom ISO with the necessary packages and
 tooling for deploying on SmartOS and Joyent Public Cloud.
