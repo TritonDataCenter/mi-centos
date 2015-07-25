@@ -39,8 +39,8 @@ function fetch_iso() {
         wget -O $ISO_DIR/sha256sum.txt.asc $MIRROR/sha256sum.txt.asc
         
         echo "Verifying gpg and sha256: $MIRROR/sha256sum.txt.asc"
-        gpg --verify SHASUMS256.txt.asc
-        grep "$ISO\$" SHASUMS256.txt.asc | sha256sum -c -
+        gpg --verify sha256sum.txt.asc
+        grep "$ISO\$" sha256sum.txt.asc | sha256sum -c -
     fi
 }
 
