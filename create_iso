@@ -28,7 +28,7 @@ function fetch_iso() {
     gpg --keyserver pool.sks-keyservers.net --recv-keys C1DAC52D1664E8A4386DBA430946FCA2C105B9DE
     
     echo "Fetching $MIRROR/sha256sum.txt.asc"
-    wget -O $ISO_DIR/sha256sum.txt.asc $MIRROR/sha256sum.txt.asc
+    wget -nv -O $ISO_DIR/sha256sum.txt.asc $MIRROR/sha256sum.txt.asc
 
     if [ -e $ISO_DIR/$ISO ]; then
         echo "Using $ISO_DIR/$ISO"
@@ -43,7 +43,7 @@ function fetch_iso() {
         echo "$ISO_DIR/$ISO Not Found...Fetching $ISO from $MIRROR"
         
         echo "Fetching $MIRROR/$ISO"
-        wget -O $ISO_DIR/$ISO $MIRROR/$ISO
+        wget -nv -O $ISO_DIR/$ISO $MIRROR/$ISO
         
         echo "Verifying gpg and sha256: $MIRROR/sha256sum.txt.asc"
         pushd $PWD
