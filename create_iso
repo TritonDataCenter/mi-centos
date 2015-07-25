@@ -36,7 +36,7 @@ function fetch_iso() {
         wget -O $ISO_DIR/$ISO $MIRROR/$ISO
         
         echo "Fetching $MIRROR/sha256sum.txt.asc"
-        wget -O $ISO_DIR/sha256sum.txt.asc $MIRROR/sha256sum.txt.asc
+        wget -O sha256sum.txt.asc $MIRROR/sha256sum.txt.asc
         
         echo "Verifying gpg and sha256: $MIRROR/sha256sum.txt.asc"
         gpg --verify sha256sum.txt.asc
