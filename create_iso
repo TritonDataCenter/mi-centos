@@ -32,13 +32,6 @@ function fetch_iso() {
 
     if [ -e $ISO_DIR/$ISO ]; then
         echo "Using $ISO_DIR/$ISO"
-
-        echo "Verifying gpg and sha256: $MIRROR/sha256sum.txt.asc"
-        pushd $PWD
-        cd $ISO_DIR
-        gpg --verify sha256sum.txt.asc
-        grep "$ISO\$" sha256sum.txt.asc | sha256sum -c -
-        popd
     else
         echo "$ISO_DIR/$ISO Not Found...Fetching $ISO from $MIRROR"
         
