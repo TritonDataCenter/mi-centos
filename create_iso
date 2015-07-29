@@ -27,10 +27,16 @@ function fetch_iso() {
     else
         echo "$ISO_DIR/$ISO Not Found...Fetching $ISO from $MIRROR"
         
-        echo "Adding gpg signing keys"
+        # Check if we already imported the key
         # pub  4096R/C105B9DE 2011-07-03 CentOS-6 Key (CentOS 6 Official Signing Key) <centos-6-key@centos.org>
         #  Key fingerprint = C1DA C52D 1664 E8A4 386D  BA43 0946 FCA2 C105 B9DE
-        gpg --keyserver pool.sks-keyservers.net --recv-keys C1DAC52D1664E8A4386DBA430946FCA2C105B9DE
+        set +e 
+        gpg --list-keys | grep 4096R/C105B9DE > /dev/null
+        if [[ $? -gt 0 ]]; then
+            echo "Adding gpg signing keys"
+            gpg --keyserver pool.sks-keyservers.net --recv-keys C1DAC52D1664E8A4386DBA430946FCA2C105B9DE
+        fi
+        set -e
     
         echo "Fetching $MIRROR/sha256sum.txt.asc"
         wget -nv -O $ISO_DIR/sha256sum.txt.asc $MIRROR/sha256sum.txt.asc
