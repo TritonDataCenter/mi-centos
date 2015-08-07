@@ -13,7 +13,7 @@ ISO_DIR=/data/fetched-iso
 ISO_FILENAME=./centos-6-joyent.iso
 KS_CFG=./ks.cfg
 GUESTTOOLS=sdc-vmtools
-MIRROR=http://yum.tamu.edu/centos/${VERSION}/isos/x86_64
+MIRROR=http://mirrors.gigenet.com/centos/${VERSION}/isos/x86_64
 MOUNT_POINT=/mnt/centos6
 
 function fetch_iso() {
