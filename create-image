@@ -217,14 +217,14 @@ function snapshot {
 
 function create_file {
   echo "==> Creating image file..."
-  zfs send zones/${VM_UUID}-disk0@dataset-${BUILD_DATE} | gzip -9 > ${IMAGE_NAME}-${BUILD_DATE}.zfs.gz
+  zfs send zones/${VM_UUID}-disk0@dataset-${BUILD_DATE} | xz -9 > ${IMAGE_NAME}-${BUILD_DATE}.zfs.xz
   echo "==> done!"
   echo "==>"
 }
 
 function create_manifest {
   echo "==> Creating manifest file..."
-  ./sdc-vmmanifest -f ${IMAGE_NAME}-${BUILD_DATE}.zfs.gz -n ${IMAGE_NAME} -s 10240 -v ${BUILD_DATE} -d "$DESC" -h $HOMEPAGE -o linux > ${IMAGE_NAME}-${BUILD_DATE}.json
+  ./sdc-vmmanifest -f ${IMAGE_NAME}-${BUILD_DATE}.zfs.xz -n ${IMAGE_NAME} -s 10240 -v ${BUILD_DATE} -d "$DESC" -h $HOMEPAGE -o linux > ${IMAGE_NAME}-${BUILD_DATE}.json
   echo "==> done!"
   echo "==>"
 }
