@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -euo pipefail
-set -o xtrace
 IFS=$'\n\t'
 
 CUR_TIME=`date +%FT%TZ`
