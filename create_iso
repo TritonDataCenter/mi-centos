@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-CUR_TIME=`date +%FT%TZ`
+CUR_TIME=$(date +%FT%TZ)
 CUSTOM_RPMS=./RPMS
 DVD_LAYOUT=/data/centos-6-iso-layout
 VERSION="6.8"
@@ -110,7 +110,7 @@ function modify_boot_menu() {
 function cleanup_layout() {
     echo "Cleaning up $DVD_LAYOUT"
     find $DVD_LAYOUT -name TRANS.TBL -exec rm '{}' +
-    COMPS_XML=`find $DVD_LAYOUT/repodata -name '*.xml' ! -name 'repomd.xml' -exec basename {} \;`
+    COMPS_XML=$(find $DVD_LAYOUT/repodata -name '*.xml' ! -name 'repomd.xml' -exec basename {} \;)
     mv $DVD_LAYOUT/repodata/$COMPS_XML $DVD_LAYOUT/repodata/comps.xml
     find $DVD_LAYOUT/repodata -type f ! -name 'comps.xml' -exec rm '{}' +
 }
@@ -122,7 +122,7 @@ function create_newiso() {
     modify_boot_menu
     echo "Preparing NEW ISO"
     pushd $DVD_LAYOUT > /dev/null 2>&1
-    discinfo=`head -1 .discinfo`
+    discinfo=$(head -1 .discinfo)
     createrepo -u "media://$discinfo" -g repodata/comps.xml $DVD_LAYOUT
     echo "Creating NEW ISO"
     mkisofs -r -R -J -T -v \
@@ -157,7 +157,7 @@ EOF
     exit 1
 }
 
-args=`getopt -o h -n 'build_centos_iso.sh' -- "$@"`
+args=$(getopt -o h -n 'build_centos_iso.sh' -- "$@")
 
 if [[ $# == 0 ]]; then
     usage;
